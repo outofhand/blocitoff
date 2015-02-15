@@ -18,7 +18,8 @@ angular
     'ngTouch',
     'ui.router',
     'firebase',
-    'ui.date'
+    'ui.date',
+    'ui.bootstrap'
   ])
   .config(function($stateProvider, $urlRouterProvider) {
   
@@ -27,12 +28,22 @@ angular
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'  
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'  
+      })  
+      .state('task', {
+        url: '/task',
+        templateUrl: 'views/task.html',
+        controller: 'TaskCtrl'  
+      })        
+      .state('login', {
+        url: '/login',
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'  
       })
-      .state('about', {
-        url: '/about',
-        templateUrl: 'views/about.html',
-        controller: 'MainCtrl'  
-      });  
+      .state('register', {
+        url: '/register',
+        templateUrl: 'views/register.html',
+        controller: 'RegisterCtrl'  
+      });           
   })

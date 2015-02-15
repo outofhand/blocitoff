@@ -1,0 +1,87 @@
+<div id="features">
+
+<div class="jumbotron" ng-hide="userLoggedIn">
+  <div class="alert alert-danger">You are not logged in!</div>
+  <a ui-sref="login" class="btn btn-success">Login</a>
+</div>
+
+<div ng-show="userLoggedIn">
+
+  <section id="top">
+    <h2 ng-click="isCollapsed = !isCollapsed">Add Task</h2>
+    <div id="collapse" collapse="isCollapsed">
+      <form role="form" ng-submit="addTodo()" class="form-horizontal">
+        <div class="form-group">
+
+            <div class="col-sm-3">
+              <input type="text" ng-model="newTask" placeholder="Task description" class="form-control">
+            </div>
+
+            <label class="col-sm-1 control-label" for="priority">Priority</label>
+            <div class="col-sm-2">
+              <select id="priority" ng-model="newTaskPriority" ng-options="obj.name for obj in priorities" class="form-control input-small">
+
+              </select>
+            </div>
+
+              <label class="col-sm-2 control-label" for="dueDate">Due Date</label>
+            <div class="col-sm-3">
+              <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+
+            <div class="col-sm-1">
+              <input type="submit" class="btn btn-primary" value="Add">
+            </div>          
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="main">
+    <h2>Task List</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Priority</th>
+          <th>Action</th>
+        </tr>          
+      </thead>
+      <tbody>
+        <tr ng-repeat="(id, todo) in todos | activeTasks:filterOptions">
+          <td ng-class="statusCheck(todo)">{{todo.task}}</td>
+          <td>{{todo.priority}}</td>
+          <td>
+
+            <button type="button" class="btn btn-success" ng-model="todo.completed" btn-checkbox ng-click="toggleTask(todo)"><i class="fa fa-check"></i></button>
+            <button type="button" class="btn btn-danger" ng-click="removeTask(id)"><i class="fa fa-trash-o"></i></button>
+
+           <!-- <img src="/images/check_alt-32.png" ng-model="todo.completed" ng-click="toggleTask(todo)" title="Mark task completed" />
+            <img src="/images/x_alt-32.png" ng-click="removeTask(id)" title="Delete task" />
+            -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  <footer id="footer" ng-show="totalCount" ng-cloak>
+    <label class="control-label" for="options">Show </label>
+    <input type="radio" ng-model="filterOptions" value="D" checked>All&nbsp;
+    <input type="radio" ng-model="filterOptions" value="A">Active&nbsp;
+    <input type="radio" ng-model="filterOptions" value="C">Completed&nbsp;
+    <input type="radio" ng-model="filterOptions" value="E">Expired
+    <br /><br />
+    <span>Total tasks: {{ totalCount }} | Completed tasks: {{ completedCount }} | Remaining tasks: {{ remainingCount }}</span>
+  </footer>
+  </section>
+
+
+
+</div>
+
+</div>
