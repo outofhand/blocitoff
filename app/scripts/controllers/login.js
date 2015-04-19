@@ -88,13 +88,6 @@ angular.module('blocitoff')
 			}
 		});
 
-/*		dologin($scope.loginUser)
-			.then(function(data){
-				$scope.userdata = data;
-			}, function(data){
-				alert(data);
-			})		*/
-
     }
 
     $scope.logout = function() {

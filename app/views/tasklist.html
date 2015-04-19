@@ -7,66 +7,51 @@
 
 <div ng-show="userLoggedIn">
 
-<!--   <section id="top"> -->
-    <h2 ng-click="isCollapsed = !isCollapsed">Add Task</h2>
-    <div id="collapse" collapse="isCollapsed">
-      <form role="form" ng-submit="addTodo()" class="form-horizontal">
-        <div class="form-group">
+  <h2 ng-click="isCollapsed = !isCollapsed">Add Task</h2>
+  <div id="collapse" collapse="isCollapsed">
+    <form role="form" ng-submit="addTodo()" class="form-horizontal">
+      <div class="form-group">
 
-            <div class="col-sm-3">
-              <input type="text" ng-model="newTask" placeholder="Task description" class="form-control">
-            </div>
+          <div class="col-sm-3">
+            <input type="text" ng-model="newTask" placeholder="Task description" class="form-control">
+          </div>
 
-            <label class="col-sm-1 control-label" for="priority">Priority</label>
-            <div class="col-sm-2">
-              <select id="priority" ng-model="newTaskPriority" ng-options="obj.name for obj in priorities" class="form-control input-small">
+          <label class="col-sm-1 control-label" for="priority">Priority</label>
+          <div class="col-sm-2">
+            <select id="priority" ng-model="newTaskPriority" ng-options="obj.name for obj in priorities" class="form-control input-small">
 
-              </select>
-            </div>
+            </select>
+          </div>
 
-            <label class="col-sm-2 control-label" for="dueDate">Due Date</label>
-            <div class="col-sm-3">
-              <p class="input-group">
-                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
+          <label class="col-sm-2 control-label" for="dueDate">Due Date</label>
+          <div class="col-sm-3">
+            <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+          </div>
 
-            <div class="col-sm-1">
-              <input type="submit" class="btn btn-primary" value="Add">
-            </div>          
-        </div>
-      </form>
+          <div class="col-sm-1">
+            <input type="submit" class="btn btn-primary" value="Add">
+          </div>          
+      </div>
+    </form>
+  </div>
+
+  <h2>Task List</h2>
+  <div class="list-group">
+    <div class="list-group-item todo-item" ng-repeat="(id, todo) in todos | activeTasks:filterOptions" ng-class="statusCheck(todo)">
+      <span class="close" ng-click="removeTask(id)">&times;</span>
+      <label>
+        <input type="checkbox" ng-model="todo.completed"  ng-click="toggleTask(todo)">
+        <span ng-bind="todo.task">This is the content of the Todo</span>
+        <span>{{todo.priority | getPriority}}</span>
+      </label>
     </div>
-<!--   </section>
-
-  <section id="main"> -->
-    <h2>Task List</h2>
-
-<!--         <div class="col-xs-12 col-centered" ng-show="userLoggedIn">
-            <div class="row row-centered"> -->
-
-<!--                 <div class="col-xs-12 center-block"> -->
-
-                    <div class="list-group">
-<!--                       <div class="list-group-item todo-item" ng-repeat="(id, todo) in todos | activeTasks:filterOptions" ng-class="{'todo-complete': todo.completed}"> -->
-                      <div class="list-group-item todo-item" ng-repeat="(id, todo) in todos | activeTasks:filterOptions" ng-class="statusCheck(todo)">
-                        <span class="close" ng-click="removeTask(id)">&times;</span>
-                        <label>
-                          <input type="checkbox" ng-model="todo.completed"  ng-click="toggleTask(todo)">
-                          <span ng-bind="todo.task">This is the content of the Todo</span>
-                          <span>{{todo.priority | getPriority}}</span>
-                        </label>
-                      </div>
-                    </div>
-                    <button class="btn btn-block btn-danger" ng-click="clearAll()">Clear All Items</button>
-<!--                 </div> -->
-
-<!--             </div>
-        </div> -->
-
+  </div>
+  <button class="btn btn-block btn-danger" ng-click="clearAll()">Clear All Items</button>
 
   <footer id="footer" ng-show="totalCount" ng-cloak>
   <div id="footeroptions">
@@ -81,10 +66,6 @@
     <br />
     <button type="text" class="btn btn-primary" data-ng-click="logout()">Logout</button>
   </footer>
-
-<!--   </section> -->
-
-
 
 </div>
 
