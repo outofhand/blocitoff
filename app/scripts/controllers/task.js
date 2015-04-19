@@ -52,9 +52,33 @@ function activeTasks() {
 	};    
 } 
 
+function getPriority() {
+	return function(item) {
+		var priorityText = '';
+
+	  	switch(item) {
+
+	  		case 1:
+				priorityText = ' (High)';
+				break;
+
+	  		case 2:
+				priorityText = ' (Medium)';
+			    break;
+
+		    default:
+				priorityText = ' (Low)';		    		    
+		}
+
+		return priorityText;
+	};	
+}
+
 angular.module('blocitoff')
 
   .filter('activeTasks', activeTasks)
+
+  .filter('getPriority', getPriority)  
 
   .directive('jqdatepicker', function() {
 		return {
@@ -160,6 +184,7 @@ angular.module('blocitoff')
 	};
 
 	$scope.toggleTask = function (todo) {
+	  todo.completed = !todo.completed;
       var currTask = $scope.todos.$getRecord(todo.$id); 
       currTask.completed = !currTask.completed;
       $scope.todos.$save(currTask).then(function() {
@@ -186,8 +211,16 @@ angular.module('blocitoff')
 		}
     }; 	
 
+	$scope.clearAll = function() {
+		$scope.todos = [];
+	};
 
 	$scope.newTodo = '';
+
+    $scope.logout = function() {
+    	rootRef.unauth();
+    	$scope.userLoggedIn = false;
+    }	
 
     var rootRef = new Firebase('https://glowing-fire-2971.firebaseio.com/users/');
 	rootRef.onAuth(authDataCallback);

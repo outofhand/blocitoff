@@ -11,7 +11,7 @@
 angular.module('blocitoff')
   .controller('LoginCtrl', LoginCtrl);
 
-   function LoginCtrl($scope, $firebase, $firebaseAuth, $q, $timeout) {
+   function LoginCtrl($scope, $firebase, $firebaseAuth, $q, $timeout, $state) {
     $scope.errors = [];
     $scope.loginUser = {
     	email: '',
@@ -82,7 +82,9 @@ angular.module('blocitoff')
 			if (error) {
 				console.log("Login Failed!", error);
 			} else {
+				 $scope.userLoggedIn = true;			 
 				console.log("Authenticated successfully with payload:", authData);
+				$state.go('task');
 			}
 		});
 

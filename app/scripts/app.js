@@ -33,7 +33,7 @@ angular
       })  
       .state('task', {
         url: '/task',
-        templateUrl: 'views/task.html',
+        templateUrl: 'views/tasklist.html',
         controller: 'TaskCtrl'  
       })        
       .state('login', {
